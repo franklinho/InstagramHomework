@@ -1,6 +1,7 @@
 package com.franklinho.instagramhomework;
 
 import android.content.Context;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -43,9 +45,12 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
         TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
         ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
+        TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
 
         // INsert model data into view items
         tvCaption.setText(photo.caption);
+
+        tvCaption.setText(Html.fromHtml("<b><font color='#125688'>" + photo.username + "</font></b>"+" "+photo.caption));
 
         tvUsername.setText(photo.username);
 
@@ -57,6 +62,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         ivProfilePhoto.setImageResource(0);
         Picasso.with(getContext()).load(photo.profileImageUrl).transform(new RoundedTransformation(75,0)).into(ivProfilePhoto);
 
+        DecimalFormat formatter = new DecimalFormat("###,###,###,###");
+        tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
 
         return convertView;
 

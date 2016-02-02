@@ -22,9 +22,10 @@
         android:textSize="15sp"
         android:maxLines="3"
         android:ellipsize="end"
-        android:layout_below="@+id/ivPhoto"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/ivBlueHeart"
+        android:layout_alignLeft="@+id/ivBlueHeart"
+        android:layout_alignStart="@+id/ivBlueHeart" />"
+         />
 
     <ImageView
         android:layout_width="50dp"
@@ -46,5 +47,30 @@
         android:layout_alignTop="@+id/ivProfilePhoto"
         android:layout_alignBottom="@+id/ivProfilePhoto"
         android:gravity="center_vertical"
-        android:paddingLeft="10dp"/>
+        android:paddingLeft="10dp"
+        android:textColor="#125688"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/ivBlueHeart"
+        android:layout_below="@+id/ivPhoto"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:src="@drawable/blueheart"
+        android:layout_margin="10dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="New Text"
+        android:id="@+id/tvLikeCount"
+        android:layout_alignBottom="@+id/ivBlueHeart"
+        android:layout_alignTop="@+id/ivBlueHeart"
+        android:layout_toRightOf="@+id/ivBlueHeart"
+        android:gravity="center_vertical"
+        android:textColor="#125688"
+        android:textStyle="bold"/>
+
 </RelativeLayout>
