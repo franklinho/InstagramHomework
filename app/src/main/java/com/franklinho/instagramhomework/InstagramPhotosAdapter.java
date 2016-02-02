@@ -41,28 +41,27 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
         TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
         ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
-//        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
-//        ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
+        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
+        ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
 
         // INsert model data into view items
         tvCaption.setText(photo.caption);
 
-//        tvUsername.setText(photo.username);
+        tvUsername.setText(photo.username);
 
         //Clear imageview
         ivPhoto.setImageResource(0);
         //Insert image using picasso
         Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
 
-//        ivProfilePhoto.setImageResource(0);
-//        Picasso.with(getContext()).load(photo.profileImageUrl).into(ivProfilePhoto);
+        ivProfilePhoto.setImageResource(0);
+        Picasso.with(getContext()).load(photo.profileImageUrl).transform(new RoundedTransformation(75,0)).into(ivProfilePhoto);
 
 
         return convertView;
 
-
-
-
-
     }
+
+
 }
+
