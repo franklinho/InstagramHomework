@@ -60,8 +60,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
 
         ivProfilePhoto.setImageResource(0);
-        Picasso.with(getContext()).load(photo.profileImageUrl).transform(new RoundedTransformation(75,0)).into(ivProfilePhoto);
-
+        Picasso.with(getContext()).load(photo.profileImageUrl).into(ivProfilePhoto);
         DecimalFormat formatter = new DecimalFormat("###,###,###,###");
         tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
 
