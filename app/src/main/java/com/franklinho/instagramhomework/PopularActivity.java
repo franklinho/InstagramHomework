@@ -97,18 +97,8 @@ public class PopularActivity extends AppCompatActivity {
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         // decode attributes into data model
                         InstagramPhoto photo = new InstagramPhoto();
-//                        photo.populateInstagramPhotoWithJSON(photoJSON);
-                        photo.username = photoJSON.getJSONObject("user").getString("username");
-                        photo.caption = photoJSON.getJSONObject("caption").getString("text");
-                        photo.imageUrl = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getString("url");
-                        photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
-                        photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
-                        photo.profileImageUrl = photoJSON.getJSONObject("user").getString("profile_picture");
-                        photo.createdTime = photoJSON.getInt("created_time");
-                        photo.type = photoJSON.getString("type");
-                        if (photo.type == "video") {
-                            photo.videoUrl = photoJSON.getJSONObject("videos").getString("standard_resolution");
-                        }
+                        photo.populateInstagramPhotoWithJSON(photoJSON);
+
 
 
                         photos.add(photo);
