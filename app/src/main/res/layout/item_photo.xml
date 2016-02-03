@@ -64,10 +64,9 @@
         android:layout_height="wrap_content"
         android:text="New Text"
         android:id="@+id/tvTimestamp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:layout_alignTop="@+id/ivProfilePhoto"
-        android:layout_alignBottom="@+id/ivProfilePhoto"
+        android:layout_alignTop="@+id/ivGreyClock"
+        android:layout_alignBottom="@+id/ivGreyClock"
         android:gravity="center_vertical"
         android:paddingRight="10dp"
         />
@@ -93,5 +92,15 @@
         android:gravity="center_vertical"
         android:textColor="#125688"
         android:textStyle="bold"/>
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:id="@+id/ivGreyClock"
+        android:layout_alignTop="@+id/ivProfilePhoto"
+        android:layout_alignBottom="@id/ivProfilePhoto"
+        android:layout_toLeftOf="@+id/tvTimestamp"
+        android:src="@drawable/greyclock"
+        android:layout_marginRight="5dp"/>
 
 </RelativeLayout>
