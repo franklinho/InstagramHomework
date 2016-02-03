@@ -30,9 +30,10 @@ public class PopularActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_popular);
 
         //Configuring swipe container
-        setContentView(R.layout.activity_popular);
+
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Setup refresh listener which triggers new data loading
         //        swipeContainer.setOnRefreshListener(this);
@@ -52,7 +53,6 @@ public class PopularActivity extends AppCompatActivity {
 
 
         JodaTimeAndroid.init(this);
-        setContentView(R.layout.activity_popular);
 
         photos = new ArrayList<>();
 
@@ -85,6 +85,7 @@ public class PopularActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                photos.clear();
                 // Expecting JSON object
                 Log.i("DEBUG", response.toString());
                 JSONArray photosJSON = null;

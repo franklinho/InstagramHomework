@@ -66,6 +66,10 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();
 
+        if (photo.type == "video") {
+            btnPlayVideo.setVisibility(View.VISIBLE);
+        }
+
         int minuteDifference = Minutes.minutesBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMinutes();
         if (minuteDifference < 60) {
             tvTimestamp.setText(Integer.toString(minuteDifference)+"m");
@@ -92,9 +96,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         DecimalFormat formatter = new DecimalFormat("###,###,###,###");
         tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
 
-        if (photo.type == "video") {
-            btnPlayVideo.setVisibility(View.VISIBLE);
-        }
+
 
         return convertView;
 

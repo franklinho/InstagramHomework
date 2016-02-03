@@ -113,7 +113,7 @@
         android:layout_alignRight="@+id/ivPhoto"
         android:background="@drawable/play_icon"
         android:alpha="0.5"
-        android:visibility="gone"
+        android:visibility="invisible"
         />
 
 </RelativeLayout>
