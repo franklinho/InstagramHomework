@@ -83,7 +83,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         //Clear imageview
         ivPhoto.setImageResource(0);
         //Insert image using picasso
-        Picasso.with(getContext()).load(photo.imageUrl).into(ivPhoto);
+        Picasso.with(getContext()).load(photo.imageUrl).placeholder(R.drawable.photo_placeholder).into(ivPhoto);
 
         ivProfilePhoto.setImageResource(0);
         Picasso.with(getContext()).load(photo.profileImageUrl).into(ivProfilePhoto);
