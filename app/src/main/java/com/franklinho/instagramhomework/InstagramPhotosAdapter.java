@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -57,6 +58,9 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
         TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
         ImageButton btnPlayVideo = (ImageButton) convertView.findViewById(R.id.btnPlayVideo);
+        TextView tvComment1 = (TextView) convertView.findViewById(R.id.tvComment1);
+        TextView tvComment2 = (TextView) convertView.findViewById(R.id.tvComment2);
+        Button btnAllComments = (Button) convertView.findViewById(R.id.btnAllComments);
 
         // INsert model data into view items
         tvCaption.setText(photo.caption);
@@ -64,6 +68,14 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         tvCaption.setText(Html.fromHtml("<b><font color='#125688'>" + photo.username + "</font></b>"+" "+photo.caption));
 
         tvUsername.setText(photo.username);
+
+        btnAllComments.setText("View all " + Integer.toString(photo.commentsCount) + " comments");
+
+        InstagramComment comment1 = (InstagramComment) photo.comments.get(0);
+        InstagramComment comment2 = (InstagramComment) photo.comments.get(1);
+
+        tvComment1.setText(Html.fromHtml("<b><font color='#125688'>" + comment1.username + "</font></b>"+" "+ comment1.text));
+        tvComment2.setText(Html.fromHtml("<b><font color='#125688'>" + comment2.username + "</font></b>"+" "+ comment2.text));
 
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();

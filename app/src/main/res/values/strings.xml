@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Popular Photos</string>
+    <string name="view_all_x_comments">View all x comments</string>
 </resources>
