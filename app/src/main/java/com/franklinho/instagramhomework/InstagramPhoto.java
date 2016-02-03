@@ -10,6 +10,7 @@ public class InstagramPhoto {
     public int imageHeight;
     public int likesCount;
     public String profileImageUrl;
+    public int createdTime;
 
 //    public void populateInstagramPhotoWithJSON(JSONObject json) {
 //

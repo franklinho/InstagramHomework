@@ -11,6 +11,12 @@ import android.widget.TextView;
 
 import com.squareup.picasso.Picasso;
 
+import org.joda.time.DateTime;
+import org.joda.time.Hours;
+import org.joda.time.Minutes;
+import org.joda.time.Months;
+import org.joda.time.Weeks;
+
 import java.text.DecimalFormat;
 import java.util.List;
 
@@ -46,6 +52,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
         ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
         TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
+        TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
 
         // INsert model data into view items
         tvCaption.setText(photo.caption);
@@ -53,6 +60,25 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         tvCaption.setText(Html.fromHtml("<b><font color='#125688'>" + photo.username + "</font></b>"+" "+photo.caption));
 
         tvUsername.setText(photo.username);
+
+        DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
+        DateTime currentDateTime = new DateTime();
+
+        int minuteDifference = Minutes.minutesBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMinutes();
+        if (minuteDifference < 60) {
+            tvTimestamp.setText(Integer.toString(minuteDifference)+"m");
+        } else if (Hours.hoursBetween(createdDateTime.toLocalDateTime(),currentDateTime.toLocalDateTime()).getHours() < 24) {
+            tvTimestamp.setText(Integer.toString(Hours.hoursBetween(createdDateTime.toLocalDateTime(),currentDateTime.toLocalDateTime()).getHours())+"h");
+        } else if (Months.monthsBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMonths() < 1) {
+            tvTimestamp.setText(Integer.toString(Weeks.weeksBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getWeeks()) + "w");
+        } else {
+            tvTimestamp.setText(Integer.toString(Months.monthsBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMonths())+"m");
+        }
+
+
+//        tvTimestamp.setText(Integer.toString(photo.createdTime));
+
+
 
         //Clear imageview
         ivPhoto.setImageResource(0);

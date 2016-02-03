@@ -8,6 +8,8 @@ import android.widget.ListView;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,6 +27,7 @@ public class PopularActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JodaTimeAndroid.init(this);
         setContentView(R.layout.activity_popular);
 
         photos = new ArrayList<>();
@@ -68,6 +71,8 @@ public class PopularActivity extends AppCompatActivity {
                         photo.imageHeight = photoJSON.getJSONObject("images").getJSONObject("standard_resolution").getInt("height");
                         photo.likesCount = photoJSON.getJSONObject("likes").getInt("count");
                         photo.profileImageUrl = photoJSON.getJSONObject("user").getString("profile_picture");
+                        photo.createdTime = photoJSON.getInt("created_time");
+
 
                         photos.add(photo);
                     }
