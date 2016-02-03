@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -53,6 +54,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
         TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
         TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
+        ImageButton btnPlayVideo = (ImageButton) convertView.findViewById(R.id.btnPlayVideo);
 
         // INsert model data into view items
         tvCaption.setText(photo.caption);
@@ -89,6 +91,10 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         Picasso.with(getContext()).load(photo.profileImageUrl).into(ivProfilePhoto);
         DecimalFormat formatter = new DecimalFormat("###,###,###,###");
         tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
+
+        if (photo.type == "video") {
+            btnPlayVideo.setVisibility(View.VISIBLE);
+        }
 
         return convertView;
 

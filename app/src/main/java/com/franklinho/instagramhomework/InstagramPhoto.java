@@ -11,6 +11,8 @@ public class InstagramPhoto {
     public int likesCount;
     public String profileImageUrl;
     public int createdTime;
+    public String type;
+    public String videoUrl;
 
 //    public void populateInstagramPhotoWithJSON(JSONObject json) {
 //
