@@ -35,10 +35,13 @@ public class PopularActivity extends AppCompatActivity {
         setContentView(R.layout.activity_popular);
         swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Setup refresh listener which triggers new data loading
-
-
-
-
+        //        swipeContainer.setOnRefreshListener(this);
+        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                fetchPopularPhotos();
+            }
+        });
 
         // Configure the refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
@@ -60,13 +63,7 @@ public class PopularActivity extends AppCompatActivity {
         //attach listview to adapter
 
         lvPhotos.setAdapter(aPhotos);
-//        swipeContainer.setOnRefreshListener(this);
-        swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                fetchPopularPhotos();
-            }
-        });
+
 
 
         // Sent out api request to popular photos
@@ -89,11 +86,10 @@ public class PopularActivity extends AppCompatActivity {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 // Expecting JSON object
-
                 Log.i("DEBUG", response.toString());
                 JSONArray photosJSON = null;
                 try {
-                    photos.clear();
+
                     photosJSON = response.getJSONArray("data"); // array of posts
                     for (int i = 0; i < photosJSON.length(); i++) {
                         // get json at that position in array
@@ -117,12 +113,13 @@ public class PopularActivity extends AppCompatActivity {
                         photos.add(photo);
 
                     }
-                    swipeContainer.setRefreshing(false);
-                    aPhotos.notifyDataSetChanged();
+
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
 
+                aPhotos.notifyDataSetChanged();
+                swipeContainer.setRefreshing(false);
 
 
             }
