@@ -21,6 +21,7 @@ import org.joda.time.Weeks;
 import java.text.DecimalFormat;
 import java.util.List;
 
+
 /**
  * Created by franklinho on 2/2/16.
  */
@@ -36,6 +37,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+//        ViewHolder holder;
         // get data for this position
         //Check if using a recycled view, if not inflate
         // Look up the views for populating data
