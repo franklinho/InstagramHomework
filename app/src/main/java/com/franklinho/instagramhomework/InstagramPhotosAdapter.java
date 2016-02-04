@@ -93,7 +93,8 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();
 
-        if (photo.type == "video") {
+        if (photo.type.equals("video") ) {
+//            holder.btnPlayVideo.setAlpha((float) 0.5);
             holder.btnPlayVideo.setVisibility(View.VISIBLE);
         }
 

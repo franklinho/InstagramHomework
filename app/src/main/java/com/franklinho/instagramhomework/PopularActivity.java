@@ -81,10 +81,6 @@ public class PopularActivity extends AppCompatActivity {
         fetchPopularPhotos();
     }
 
-//    @Override
-//    public void onRefresh() {
-//        fetchPopularPhotos();
-//    }
 
     // Trigger API Request
     public void fetchPopularPhotos() {
@@ -119,7 +115,7 @@ public class PopularActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
+                ArrayList<InstagramPhoto> photoArray = photos;
                 aPhotos.notifyDataSetChanged();
                 swipeContainer.setRefreshing(false);
 

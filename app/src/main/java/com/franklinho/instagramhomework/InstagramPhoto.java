@@ -34,7 +34,7 @@ public class InstagramPhoto {
             profileImageUrl = json.getJSONObject("user").getString("profile_picture");
             createdTime = json.getInt("created_time");
             type = json.getString("type");
-            if (type == "video") {
+            if (type.equals("video")) {
                 videoUrl = json.getJSONObject("videos").getString("standard_resolution");
             }
 
