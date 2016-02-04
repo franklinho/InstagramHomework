@@ -12,6 +12,8 @@ import android.graphics.Shader;
  * Created by franklinho on 2/2/16.
  */
 
+// Alternative rounded profile picture class that didn't end up being used. Replaced by library.
+
 public class RoundedTransformation implements
         com.squareup.picasso.Transformation {
     private final int radius;

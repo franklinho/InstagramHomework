@@ -22,6 +22,8 @@ import butterknife.ButterKnife;
 /**
  * Created by franklinho on 2/3/16.
  */
+
+//Dialog fragment that displays all comments
 public class AllCommentsDialog extends DialogFragment {
     @Bind(R.id.lvComments) ListView lvComments;
 
@@ -30,7 +32,7 @@ public class AllCommentsDialog extends DialogFragment {
     }
 
     public static AllCommentsDialog newInstance(ArrayList<Parcelable> comments) {
-
+        //Receive arraylist of Parcelable comments and set as arguments for fragment
         AllCommentsDialog frag = new AllCommentsDialog();
         Bundle args = new Bundle();
         args.putParcelableArrayList("comments",comments);
@@ -42,8 +44,10 @@ public class AllCommentsDialog extends DialogFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         ArrayList<Parcelable> commentsArray = getArguments().getParcelableArrayList("comments");
         ArrayList<InstagramComment> comments = new ArrayList<>();
+        //Unpack arraylist of Parcelables
         for (int i =0; i < commentsArray.size(); i++) {
             InstagramComment currentComment =  Parcels.unwrap(commentsArray.get(i));
             comments.add(currentComment);
@@ -61,14 +65,6 @@ public class AllCommentsDialog extends DialogFragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-
-
-        // Fetch arguments from bundle and set title
-//        String title = getArguments().getString("title", "Enter Name");
-//        getDialog().setTitle(title);
-        // Show soft keyboard automatically and request focus to field
-//        getDialog().getWindow().setSoftInputMode(
-//                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
     @NonNull

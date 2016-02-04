@@ -16,10 +16,12 @@ public class InstagramComment implements Serializable {
     public String profileImageUrl;
     public String text;
 
+    //Necessary for class to be Parcelable
     public InstagramComment() {
         // Normal actions performed by class, since this is still a normal object!
     }
 
+    //Allows comment object to be populated by passing in JSON
     public void populateInstagramCommentWithJSON(JSONObject json) {
         try {
 

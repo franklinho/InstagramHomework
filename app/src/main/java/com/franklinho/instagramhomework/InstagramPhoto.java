@@ -22,10 +22,12 @@ public class InstagramPhoto {
     public ArrayList<InstagramComment> comments;
     public int commentsCount;
 
+    //Allows you to populate the photo object by just passing in the JSON
     public void populateInstagramPhotoWithJSON(JSONObject json) {
 
         try {
 
+            //Parsing through JSON
             username = json.getJSONObject("user").getString("username");
             caption = json.getJSONObject("caption").getString("text");
             imageUrl = json.getJSONObject("images").getJSONObject("standard_resolution").getString("url");

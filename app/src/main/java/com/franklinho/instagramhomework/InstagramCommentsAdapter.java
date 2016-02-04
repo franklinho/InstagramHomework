@@ -24,6 +24,8 @@ import butterknife.ButterKnife;
 /**
  * Created by franklinho on 2/3/16.
  */
+
+//Listview adapter for allcomments dialog fragment
 public class InstagramCommentsAdapter extends ArrayAdapter<InstagramComment> {
     // WHat data do we need from the activity
     //Context, data source

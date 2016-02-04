@@ -26,6 +26,9 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
+// This view is the main feed for popular instagram photos
+
+
 public class PopularActivity extends AppCompatActivity {
 
     public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
@@ -38,49 +41,46 @@ public class PopularActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular);
-        ButterKnife.bind(this);
+
+        //initiate Butterknife
+
+        ButterKnife.bind(this)
+        ;
+
+        //Set icon for actionbar
         ActionBar actionBar = getSupportActionBar();
         actionBar.setLogo(R.drawable.space_between_icon);
         actionBar.setDisplayUseLogoEnabled(true);
         actionBar.setDisplayShowHomeEnabled(true);
-        //Configuring swipe container
 
-//        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
-        // Setup refresh listener which triggers new data loading
-        //        swipeContainer.setOnRefreshListener(this);
+        //Configuring swipe container
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                //When refresh is triggered, pull photos
                 fetchPopularPhotos();
             }
         });
 
-        // Configure the refreshing colors
+        // Configure the swipe container refreshing colors
         swipeContainer.setColorSchemeResources(android.R.color.holo_blue_bright,
                 android.R.color.holo_green_light,
                 android.R.color.holo_orange_light,
                 android.R.color.holo_red_light);
 
 
-
+        //Initiate Joda Time
         JodaTimeAndroid.init(this);
 
         photos = new ArrayList<>();
-
         //Create adapter linking it to the source
         aPhotos = new InstagramPhotosAdapter(this, photos);
-
-//        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         //attach listview to adapter
-
         lvPhotos.setAdapter(aPhotos);
 
-
-
-        // Sent out api request to popular photos
+        // Send out api request to popular photos
         fetchPopularPhotos();
     }
-
 
     // Trigger API Request
     public void fetchPopularPhotos() {
@@ -99,27 +99,25 @@ public class PopularActivity extends AppCompatActivity {
                 try {
 
                     photosJSON = response.getJSONArray("data"); // array of posts
+                    //Loop through posts
                     for (int i = 0; i < photosJSON.length(); i++) {
                         // get json at that position in array
                         JSONObject photoJSON = photosJSON.getJSONObject(i);
                         // decode attributes into data model
                         InstagramPhoto photo = new InstagramPhoto();
+                        //Population of photo object has been moved to the InstagramPhoto Model
                         photo.populateInstagramPhotoWithJSON(photoJSON);
 
-
-
+                        //Add photo to array
                         photos.add(photo);
-
                     }
-
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                ArrayList<InstagramPhoto> photoArray = photos;
+                //Refresh listview now that data is there
                 aPhotos.notifyDataSetChanged();
+                //End the refreshing animation in SwipeContainer
                 swipeContainer.setRefreshing(false);
-
-
             }
 
             // onFailure (failed request)
@@ -130,21 +128,23 @@ public class PopularActivity extends AppCompatActivity {
         });
     }
 
+    //Is triggered when someone taps show all x comments in a listview item
     public void showAllComments(View view) {
 
+        //Get the instagram photo where the comments button was tapped
         InstagramPhoto photo = (InstagramPhoto) view.getTag();
 
+        //Turn the comments into an array of parcelables
         ArrayList<Parcelable> commentsArray = new ArrayList<>();
         for (int c=0; c < photo.comments.size(); c++ ) {
             commentsArray.add(Parcels.wrap(photo.comments.get(c)));
         }
 
-
+        // Initiate DialogFragment
         FragmentManager fm = getSupportFragmentManager();
         AllCommentsDialog alertDialog = AllCommentsDialog.newInstance(commentsArray);
+        //Show dialog fragment
         alertDialog.show(fm, "fragment_all_comments");
-
-
 
     }
 }
