@@ -21,6 +21,8 @@ import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
 import cz.msebera.android.httpclient.Header;
 
 public class PopularActivity extends AppCompatActivity {
@@ -28,17 +30,17 @@ public class PopularActivity extends AppCompatActivity {
     public static final String CLIENT_ID = "e05c462ebd86446ea48a5af73769b602";
     private ArrayList<InstagramPhoto> photos;
     private InstagramPhotosAdapter aPhotos;
-    private SwipeRefreshLayout swipeContainer;
-
+    @Bind(R.id.swipe_container) SwipeRefreshLayout swipeContainer;
+    @Bind(R.id.lvPhotos) ListView lvPhotos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_popular);
-
+        ButterKnife.bind(this);
         //Configuring swipe container
 
-        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
+//        swipeContainer = (SwipeRefreshLayout) findViewById(R.id.swipe_container);
         // Setup refresh listener which triggers new data loading
         //        swipeContainer.setOnRefreshListener(this);
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -63,7 +65,7 @@ public class PopularActivity extends AppCompatActivity {
         //Create adapter linking it to the source
         aPhotos = new InstagramPhotosAdapter(this, photos);
 
-        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
+//        ListView lvPhotos = (ListView) findViewById(R.id.lvPhotos);
         //attach listview to adapter
 
         lvPhotos.setAdapter(aPhotos);
@@ -128,17 +130,14 @@ public class PopularActivity extends AppCompatActivity {
     }
 
     public void showAllComments(View view) {
-//        Intent i = new Intent(this, ShowCommentsActivity.class);
+
         InstagramPhoto photo = (InstagramPhoto) view.getTag();
-//
+
         ArrayList<Parcelable> commentsArray = new ArrayList<>();
         for (int c=0; c < photo.comments.size(); c++ ) {
             commentsArray.add(Parcels.wrap(photo.comments.get(c)));
         }
-//        Parcelable listParcelable = Parcels.wrap(photo.comments);
-//
-//        i.putExtra("comments",commentsArray);
-//        startActivity(i);
+
 
         FragmentManager fm = getSupportFragmentManager();
         AllCommentsDialog alertDialog = AllCommentsDialog.newInstance(commentsArray);

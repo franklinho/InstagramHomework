@@ -1,23 +1,29 @@
 package com.franklinho.instagramhomework;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.os.Parcelable;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ListView;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 /**
  * Created by franklinho on 2/3/16.
  */
 public class AllCommentsDialog extends DialogFragment {
-
+    @Bind(R.id.lvComments) ListView lvComments;
 
     public AllCommentsDialog() {
 
@@ -35,6 +41,7 @@ public class AllCommentsDialog extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         ArrayList<Parcelable> commentsArray = getArguments().getParcelableArrayList("comments");
         ArrayList<InstagramComment> comments = new ArrayList<>();
         for (int i =0; i < commentsArray.size(); i++) {
@@ -42,7 +49,8 @@ public class AllCommentsDialog extends DialogFragment {
             comments.add(currentComment);
         }
         View view = inflater.inflate(R.layout.fragment_all_comments, container);
-        ListView lvComments = (ListView) view.findViewById(R.id.lvComments);
+        ButterKnife.bind(this,view);
+
         InstagramCommentsAdapter aComments = new InstagramCommentsAdapter(getContext(), comments);
         lvComments.setAdapter(aComments);
 
@@ -63,11 +71,14 @@ public class AllCommentsDialog extends DialogFragment {
 //                WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE);
     }
 
-//    @NonNull
-//    @Override
-//    public Dialog onCreateDialog(Bundle savedInstanceState) {
-//        View view = getActivity().getLayoutInflater().inflate(R.layout.fragment_all_comments, null);
-//
-//        return super.onCreateDialog(savedInstanceState);
-//    }
+    @NonNull
+    @Override
+    public Dialog onCreateDialog(Bundle savedInstanceState) {
+        Dialog dialog = super.onCreateDialog(savedInstanceState);
+
+        //Requesting window with no title
+        dialog.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+
+        return dialog;
+    }
 }

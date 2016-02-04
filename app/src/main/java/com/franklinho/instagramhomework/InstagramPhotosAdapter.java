@@ -22,6 +22,9 @@ import org.joda.time.Weeks;
 import java.text.DecimalFormat;
 import java.util.List;
 
+import butterknife.Bind;
+import butterknife.ButterKnife;
+
 
 /**
  * Created by franklinho on 2/2/16.
@@ -38,65 +41,71 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-//        ViewHolder holder;
+        ViewHolder holder;
         // get data for this position
         //Check if using a recycled view, if not inflate
         // Look up the views for populating data
         // Insert item data into each of the view items
         // Return the created item as a view
         InstagramPhoto photo = getItem(position);
-        if (convertView == null) {
-            //create new view form template
-            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
 
+
+        if (convertView != null) {
+            holder = (ViewHolder) convertView.getTag();
+        } else {
+            convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_photo, parent, false);
+            holder = new ViewHolder(convertView);
+            convertView.setTag(holder);
         }
 
-        TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
-        ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
-        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
-        ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
-        TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
-        TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
-        ImageButton btnPlayVideo = (ImageButton) convertView.findViewById(R.id.btnPlayVideo);
-        TextView tvComment1 = (TextView) convertView.findViewById(R.id.tvComment1);
-        TextView tvComment2 = (TextView) convertView.findViewById(R.id.tvComment2);
-        Button btnAllComments = (Button) convertView.findViewById(R.id.btnAllComments);
+
+
+//        TextView tvCaption = (TextView) convertView.findViewById(R.id.tvCaption);
+//        ImageView ivPhoto = (ImageView) convertView.findViewById(R.id.ivPhoto);
+//        TextView tvUsername = (TextView) convertView.findViewById(R.id.tvUsername);
+//        ImageView ivProfilePhoto = (ImageView) convertView.findViewById(R.id.ivProfilePhoto);
+//        TextView tvLikeCount = (TextView) convertView.findViewById(R.id.tvLikeCount);
+//        TextView tvTimestamp = (TextView) convertView.findViewById(R.id.tvTimestamp);
+//        ImageButton btnPlayVideo = (ImageButton) convertView.findViewById(R.id.btnPlayVideo);
+//        TextView tvComment1 = (TextView) convertView.findViewById(R.id.tvComment1);
+//        TextView tvComment2 = (TextView) convertView.findViewById(R.id.tvComment2);
+//        Button btnAllComments = (Button) convertView.findViewById(R.id.btnAllComments);
 
         // INsert model data into view items
-        tvCaption.setText(photo.caption);
+        holder.tvCaption.setText(photo.caption);
 
-        tvCaption.setText(Html.fromHtml("<b><font color='#125688'>" + photo.username + "</font></b>"+" "+photo.caption));
+        holder.tvCaption.setText(Html.fromHtml("<b><font color='#125688'>" + photo.username + "</font></b>"+" "+photo.caption));
 
-        tvUsername.setText(photo.username);
+        holder.tvUsername.setText(photo.username);
 
-        btnAllComments.setText("View all " + Integer.toString(photo.commentsCount) + " comments");
-        btnAllComments.setTag(photo);
+        holder.btnAllComments.setText("View all " + Integer.toString(photo.commentsCount) + " comments");
+        holder.btnAllComments.setTag(photo);
 
 
         if (photo.commentsCount >= 2) {
             InstagramComment comment1 = (InstagramComment) photo.comments.get(0);
             InstagramComment comment2 = (InstagramComment) photo.comments.get(1);
 
-            tvComment1.setText(Html.fromHtml("<b><font color='#125688'>" + comment1.username + "</font></b>"+" "+ comment1.text));
-            tvComment2.setText(Html.fromHtml("<b><font color='#125688'>" + comment2.username + "</font></b>"+" "+ comment2.text));
+            holder.tvComment1.setText(Html.fromHtml("<b><font color='#125688'>" + comment1.username + "</font></b>"+" "+ comment1.text));
+            holder.tvComment2.setText(Html.fromHtml("<b><font color='#125688'>" + comment2.username + "</font></b>"+" "+ comment2.text));
         }
 
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();
 
         if (photo.type == "video") {
-            btnPlayVideo.setVisibility(View.VISIBLE);
+            holder.btnPlayVideo.setVisibility(View.VISIBLE);
         }
 
         int minuteDifference = Minutes.minutesBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMinutes();
         if (minuteDifference < 60) {
-            tvTimestamp.setText(Integer.toString(minuteDifference)+"m");
+            holder.tvTimestamp.setText(Integer.toString(minuteDifference)+"m");
         } else if (Hours.hoursBetween(createdDateTime.toLocalDateTime(),currentDateTime.toLocalDateTime()).getHours() < 24) {
-            tvTimestamp.setText(Integer.toString(Hours.hoursBetween(createdDateTime.toLocalDateTime(),currentDateTime.toLocalDateTime()).getHours())+"h");
+            holder.tvTimestamp.setText(Integer.toString(Hours.hoursBetween(createdDateTime.toLocalDateTime(),currentDateTime.toLocalDateTime()).getHours())+"h");
         } else if (Months.monthsBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMonths() < 1) {
-            tvTimestamp.setText(Integer.toString(Weeks.weeksBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getWeeks()) + "w");
+            holder.tvTimestamp.setText(Integer.toString(Weeks.weeksBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getWeeks()) + "w");
         } else {
-            tvTimestamp.setText(Integer.toString(Months.monthsBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMonths())+"m");
+            holder.tvTimestamp.setText(Integer.toString(Months.monthsBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMonths())+"m");
         }
 
 
@@ -105,14 +114,14 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
 
         //Clear imageview
-        ivPhoto.setImageResource(0);
+        holder.ivPhoto.setImageResource(0);
         //Insert image using picasso
-        Picasso.with(getContext()).load(photo.imageUrl).placeholder(R.drawable.photo_placeholder).into(ivPhoto);
+        Picasso.with(getContext()).load(photo.imageUrl).placeholder(R.drawable.photo_placeholder).into(holder.ivPhoto);
 
-        ivProfilePhoto.setImageResource(0);
-        Picasso.with(getContext()).load(photo.profileImageUrl).into(ivProfilePhoto);
+        holder.ivProfilePhoto.setImageResource(0);
+        Picasso.with(getContext()).load(photo.profileImageUrl).into(holder.ivProfilePhoto);
         DecimalFormat formatter = new DecimalFormat("###,###,###,###");
-        tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
+        holder.tvLikeCount.setText(formatter.format(photo.likesCount) + " likes");
 
 
 
@@ -120,6 +129,21 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
     }
 
+    static class ViewHolder {
+        @Bind(R.id.tvCaption) TextView tvCaption ;
+        @Bind(R.id.ivPhoto)ImageView ivPhoto;
+        @Bind(R.id.tvUsername)TextView tvUsername;
+        @Bind(R.id.ivProfilePhoto)ImageView ivProfilePhoto;
+        @Bind(R.id.tvLikeCount)TextView tvLikeCount;
+        @Bind(R.id.tvTimestamp)TextView tvTimestamp;
+        @Bind(R.id.btnPlayVideo)ImageButton btnPlayVideo;
+        @Bind(R.id.tvComment1)TextView tvComment1;
+        @Bind(R.id.tvComment2)TextView tvComment2;
+        @Bind(R.id.btnAllComments)Button btnAllComments;
 
+        public ViewHolder (View view) {
+            ButterKnife.bind(this, view);
+        }
+    }
 }
 
