@@ -35,7 +35,7 @@ public class InstagramPhoto {
             createdTime = json.getInt("created_time");
             type = json.getString("type");
             if (type.equals("video")) {
-                videoUrl = json.getJSONObject("videos").getString("standard_resolution");
+                videoUrl = json.getJSONObject("videos").getJSONObject("standard_resolution").getString("url");
             }
 
             commentsCount = json.getJSONObject("comments").getInt("count");

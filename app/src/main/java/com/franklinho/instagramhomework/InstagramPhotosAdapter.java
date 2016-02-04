@@ -1,6 +1,7 @@
 package com.franklinho.instagramhomework;
 
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,7 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.squareup.picasso.Picasso;
 
@@ -30,6 +33,7 @@ import butterknife.ButterKnife;
  * Created by franklinho on 2/2/16.
  */
 public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
+    public ViewHolder holder;
     // WHat data do we need from the activity
     //Context, data source
     public InstagramPhotosAdapter(Context context, List<InstagramPhoto> objects) {
@@ -41,7 +45,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        ViewHolder holder;
+
         // get data for this position
         //Check if using a recycled view, if not inflate
         // Look up the views for populating data
@@ -93,9 +97,30 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();
 
-        if (photo.type.equals("video") ) {
+        if (photo.type != null && photo.type.equals("video") ) {
 //            holder.btnPlayVideo.setAlpha((float) 0.5);
             holder.btnPlayVideo.setVisibility(View.VISIBLE);
+            holder.vvInstagramVideo.setVisibility(View.VISIBLE);
+            holder.vvInstagramVideo.setVideoPath(photo.videoUrl);
+            MediaController mediaController = new MediaController(getContext());
+            mediaController.setAnchorView(holder.vvInstagramVideo);
+            holder.vvInstagramVideo.setMediaController(mediaController);
+            holder.vvInstagramVideo.requestFocus();
+            holder.vvInstagramVideo.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
+                @Override
+                public void onPrepared(MediaPlayer mp) {
+                    holder.ivPhoto.setVisibility(View.INVISIBLE);
+                    holder.btnPlayVideo.setVisibility(View.INVISIBLE);
+                    holder.vvInstagramVideo.start();
+                }
+            });
+//        }
+        } else {
+            holder.ivPhoto.setVisibility(View.VISIBLE);
+            holder.btnPlayVideo.setVisibility(View.INVISIBLE);
+            holder.vvInstagramVideo.setVisibility(View.GONE);
+            holder.vvInstagramVideo.stopPlayback();
+//            holder.vvInstagramVideo.setVideoURI(null);
         }
 
         int minuteDifference = Minutes.minutesBetween(createdDateTime.toLocalDateTime(), currentDateTime.toLocalDateTime()).getMinutes();
@@ -116,6 +141,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
 
         //Clear imageview
         holder.ivPhoto.setImageResource(0);
+
         //Insert image using picasso
         Picasso.with(getContext()).load(photo.imageUrl).placeholder(R.drawable.photo_placeholder).into(holder.ivPhoto);
 
@@ -141,6 +167,7 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         @Bind(R.id.tvComment1)TextView tvComment1;
         @Bind(R.id.tvComment2)TextView tvComment2;
         @Bind(R.id.btnAllComments)Button btnAllComments;
+        @Bind(R.id.vvInstagramVideo) VideoView vvInstagramVideo;
 
         public ViewHolder (View view) {
             ButterKnife.bind(this, view);
