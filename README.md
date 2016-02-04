@@ -12,20 +12,18 @@ Time spent: 15 hours spent in total
       * :white_check_mark: Graphic, Caption, Username (2 points)
       * :white_check_mark: (Optional) relative timestamp, like count, user profile image (3 points)
   * The following **advanced** features are implemented:
-  * :white_check_mark: Advanced: Add pull-to-refresh for popular stream with SwipeRefreshLayout (1 point)
-  * :white_check_mark: Advanced: Show latest comment for each photo (bonus: show last 2 comments) (1 point + 1 bonus)
-  * :white_check_mark: Advanced: Display each user profile image using a RoundedImageView (2 points)
-  Advanced: Display a nice default placeholder graphic for each image during loading (read more 
-  * :white_check_mark: about Picasso) (1 point)
-  Advanced: Improve the user interface through styling and coloring (1 to 5 points depending on the 
-  * :white_check_mark: difficulty of UI improvements)
-* The following **bonus** features are implemented:
-  * :white_check_mark: Bonus: Allow user to view all comments for an image within a separate activity or dialog fragment * :white_check_mark: (3 points)
-  * :white_check_mark: Bonus: Allow video posts to be played in full-screen using the VideoView (2 points)
-  * :white_check_mark: Bonus: Apply the popular Butterknife annotation library to reduce view boilerplate. (1 point)
-* The following **bonus** features are implemented:
-  * Videoview automatically plays videos
-  * Image will overlay videoview until it's ready to play
+    * :white_check_mark: Advanced: Add pull-to-refresh for popular stream with SwipeRefreshLayout (1 point)
+    * :white_check_mark: Advanced: Show latest comment for each photo (bonus: show last 2 comments) (1 point + 1 bonus)
+    * :white_check_mark: Advanced: Display each user profile image using a RoundedImageView (2 points)
+    * :white_check_mark: Advanced: Display a nice default placeholder graphic for each image during loading (read more about Picasso) (1 point)
+    * :white_check_mark: Advanced: Improve the user interface through styling and coloring (1 to 5 points depending on the difficulty of UI improvements)
+  * The following **bonus** features are implemented:
+    * :white_check_mark: Bonus: Allow user to view all comments for an image within a separate activity or dialog fragment * :white_check_mark: (3 points)
+    * :white_check_mark: Bonus: Allow video posts to be played in full-screen using the VideoView (2 points)
+    * :white_check_mark: Bonus: Apply the popular Butterknife annotation library to reduce view boilerplate. (1 point)
+  * The following **bonus** features are implemented:
+    * Videoview automatically plays videos
+    * Image will overlay videoview until it's ready to play
 
 ## Video Walkthrough 
 
