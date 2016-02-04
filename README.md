@@ -21,7 +21,7 @@ Time spent: 15 hours spent in total
     * :white_check_mark: Bonus: Allow user to view all comments for an image within a separate activity or dialog fragment * :white_check_mark: (3 points)
     * :white_check_mark: Bonus: Allow video posts to be played in full-screen using the VideoView (2 points)
     * :white_check_mark: Bonus: Apply the popular Butterknife annotation library to reduce view boilerplate. (1 point)
-  * The following **bonus** features are implemented:
+  * The following **additional** features are implemented:
     * Videoview automatically plays videos
     * Image will overlay videoview until it's ready to play
 
