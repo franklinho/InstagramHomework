@@ -70,12 +70,16 @@ public class InstagramPhotosAdapter extends ArrayAdapter<InstagramPhoto>{
         tvUsername.setText(photo.username);
 
         btnAllComments.setText("View all " + Integer.toString(photo.commentsCount) + " comments");
+        btnAllComments.setTag(photo);
 
-        InstagramComment comment1 = (InstagramComment) photo.comments.get(0);
-        InstagramComment comment2 = (InstagramComment) photo.comments.get(1);
 
-        tvComment1.setText(Html.fromHtml("<b><font color='#125688'>" + comment1.username + "</font></b>"+" "+ comment1.text));
-        tvComment2.setText(Html.fromHtml("<b><font color='#125688'>" + comment2.username + "</font></b>"+" "+ comment2.text));
+        if (photo.commentsCount >= 2) {
+            InstagramComment comment1 = (InstagramComment) photo.comments.get(0);
+            InstagramComment comment2 = (InstagramComment) photo.comments.get(1);
+
+            tvComment1.setText(Html.fromHtml("<b><font color='#125688'>" + comment1.username + "</font></b>"+" "+ comment1.text));
+            tvComment2.setText(Html.fromHtml("<b><font color='#125688'>" + comment2.username + "</font></b>"+" "+ comment2.text));
+        }
 
         DateTime createdDateTime = new DateTime((long)photo.createdTime*1000);
         DateTime currentDateTime = new DateTime();

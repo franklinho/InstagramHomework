@@ -1,9 +1,12 @@
 package com.franklinho.instagramhomework;
 
 import android.os.Bundle;
+import android.os.Parcelable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpClient;
@@ -14,6 +17,7 @@ import net.danlew.android.joda.JodaTimeAndroid;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -121,5 +125,26 @@ public class PopularActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+
+    public void showAllComments(View view) {
+//        Intent i = new Intent(this, ShowCommentsActivity.class);
+        InstagramPhoto photo = (InstagramPhoto) view.getTag();
+//
+        ArrayList<Parcelable> commentsArray = new ArrayList<>();
+        for (int c=0; c < photo.comments.size(); c++ ) {
+            commentsArray.add(Parcels.wrap(photo.comments.get(c)));
+        }
+//        Parcelable listParcelable = Parcels.wrap(photo.comments);
+//
+//        i.putExtra("comments",commentsArray);
+//        startActivity(i);
+
+        FragmentManager fm = getSupportFragmentManager();
+        AllCommentsDialog alertDialog = AllCommentsDialog.newInstance(commentsArray);
+        alertDialog.show(fm, "fragment_all_comments");
+
+
+
     }
 }

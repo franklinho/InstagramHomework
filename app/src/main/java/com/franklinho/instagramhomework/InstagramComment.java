@@ -2,15 +2,23 @@ package com.franklinho.instagramhomework;
 
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
+
+import java.io.Serializable;
 
 /**
  * Created by franklinho on 2/3/16.
  */
-public class InstagramComment {
+@Parcel
+public class InstagramComment implements Serializable {
     public int createdTime;
     public String username;
     public String profileImageUrl;
     public String text;
+
+    public InstagramComment() {
+        // Normal actions performed by class, since this is still a normal object!
+    }
 
     public void populateInstagramCommentWithJSON(JSONObject json) {
         try {
@@ -25,5 +33,9 @@ public class InstagramComment {
                 e.printStackTrace();
             }
     }
+
+
+
+
 
 }

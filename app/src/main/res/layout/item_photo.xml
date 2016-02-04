@@ -126,7 +126,8 @@
         android:layout_alignStart="@+id/tvCaption"
         android:background="@android:color/transparent"
         android:textAllCaps="false"
-        android:textColor="#808080"/>
+        android:textColor="#808080"
+        android:onClick="showAllComments" />
 
     <TextView
         android:layout_width="wrap_content"
