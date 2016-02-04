@@ -29,16 +29,16 @@ Time spent: 15 hours spent in total
 
 Here's a walkthrough of implemented user stories:
 
-[![General Functionality](https://github.com/franklinho/InstagramHomework/blob/master/InstagramHomeworkWalkthrough.gif)]
+![General Functionality](https://github.com/franklinho/InstagramHomework/blob/master/InstagramHomeworkWalkthrough.gif)
 
 
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
 
-    * Ran into some issues with SwipeRefreshLayout.
-    * Had to figure out how to recycle VideoViews in ListViews
-    * When showing comments in DialogFragment, had to learn how to Parcel objects. No easy way to pass Arraylist through intents    
+  * Ran into some issues with SwipeRefreshLayout.
+  * Had to figure out how to recycle VideoViews in ListViews
+  * When showing comments in DialogFragment, had to learn how to Parcel objects. No easy way to pass Arraylist through intents    
 
 
 ## Open-source libraries used
